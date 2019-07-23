@@ -1,0 +1,27 @@
+.main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__block {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    &-item {
+      &._experts {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    &-mark {
+      margin-bottom: 10px;
+      &-item {
+        display: flex;
+      }
+    }
+  }
+}
