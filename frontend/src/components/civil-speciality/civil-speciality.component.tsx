@@ -47,7 +47,7 @@ class CivilSpecialityComponent extends React.Component<IProps, any> {
                     </Button>
             }
 
-            <Modal title="Военно-учетная специальность"
+            <Modal title="Гражжанская специальность"
                    visible={this.state.visibleCivilSpecialityModal}
                    onCancel={this.handleCancelCivilSpecialityModal}
                    footer={[

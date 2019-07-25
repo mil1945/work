@@ -26,9 +26,9 @@ export const COLUMNS = [
         dataIndex: 'recommendationsMilitarySpeciality',
         key: 'recommendationsMilitarySpeciality',
     },
-    {
-        title: 'Рекомендация по подразделению',
-        dataIndex: 'recommendationsMilitarySpeciality',
-        key: 'recommendationsSubdivision',
-    }
+    // {
+    //     title: 'Рекомендация по подразделению',
+    //     dataIndex: 'recommendationsMilitarySpeciality',
+    //     key: 'recommendationsSubdivision',
+    // }
 ];

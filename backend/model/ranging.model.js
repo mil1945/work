@@ -6,8 +6,8 @@ const RangingSchema = new Schema({
     date: {type: Date},
     rang: {type: Number},
     integralIndex: {type: Number},
-    recommendationsMilitarySpeciality: {type: Number}, // изменить
-    recommendationsSubdivision: {type: Number}, // изменить
+    recommendationsMilitarySpeciality: {type: Array}, // изменить
+    recommendationsSubdivision: {type: Array}, // изменить
     idEnrollee: {type: String}
 });
 

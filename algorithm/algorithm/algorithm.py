@@ -11,9 +11,9 @@ def main(list, list_for_compare):
     result = 0
     for elem in list:
         for elem_for_compare in list_for_compare:
-            print('compare ', elem, 'with ', elem_for_compare)
+            # print('compare ', elem, 'with ', elem_for_compare)
             result += get_equality(elem, elem_for_compare)
-            print('current result: ', get_equality(elem, elem_for_compare), 'all result: ', result)
+            # print('current result: ', get_equality(elem, elem_for_compare), 'all result: ', result)
     return result
 
 

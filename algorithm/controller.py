@@ -6,32 +6,35 @@ def get_data(db):
     print(db.list_collection_names())
 
     military_specialitie = list(db.militaryspecialities.find())
-    print(military_specialitie)
 
     for enrollee in db.enrollees.find():
         civil_speciality = db.civilspecialities.find_one({'codeCivilSpeciality': enrollee['civilSpeciality']})
         competence_civil_speciality = civil_speciality['competenceCivilSpeciality']
-        print(competence_civil_speciality)
         idEnrollee = enrollee['_id']
 
-        print(idEnrollee)
+        print('.')
 
         for elem_military_specialitie in military_specialitie:
             equality = main(competence_civil_speciality, elem_military_specialitie['competenceMilitarySpeciality'])
             elem_military_specialitie['equality'] = equality
-            print(elem_military_specialitie)
-            print(equality)
+            # print(elem_military_specialitie)
+            # print(equality)
 
         military_specialitie.sort(key=lambda x: x['equality'], reverse=True)
-        print(military_specialitie)
+        # print(military_specialitie)
+
+        stop = 3
+        len_military_specialitie = len(military_specialitie)
+        if len_military_specialitie < 3:
+            stop = len_military_specialitie
+
+        recommendations_military_speciality = []
+        for elem in military_specialitie[0:stop:1]:
+            recommendations_military_speciality.append(elem['codeMilitarySpeciality'])
 
         ranging = db.rangings.find_one({'idEnrollee': str(idEnrollee)})
-        ranging['recommendationsMilitarySpeciality'] = 15
-        ranging['recommendationsSubdivision'] = 15
+        ranging['recommendationsMilitarySpeciality'] = recommendations_military_speciality
         db.rangings.save(ranging)
-
-    # for civilspecialities in db.civilspecialities.find():
-    #     print(civilspecialities)
 
     data = list(db.rangings.find())
 
