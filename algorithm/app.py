@@ -1,5 +1,5 @@
 from flask import Flask
-from algorithm import get_data
+from controller import get_data
 from pymongo import MongoClient
 
 app = Flask(__name__)
