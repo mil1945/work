@@ -6,6 +6,7 @@ const MilitarySpecialitySchema = new Schema({
     codeMilitarySpeciality: {type: Number},
     nameMilitarySpeciality: {type: String},
     competenceMilitarySpeciality: {type: Array}, // массив
+    idMilitarySpecialityEn: {type: String},
 });
 
 const MilitarySpeciality = mongoose.model('MilitarySpeciality', MilitarySpecialitySchema);

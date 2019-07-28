@@ -9,12 +9,14 @@ export default class MilitarySpecialityService {
     createMilitarySpeciality({codeMilitarySpeciality,
                                  nameMilitarySpeciality,
                                  competenceMilitarySpeciality,
+                                 idMilitarySpecialityEn
                              }) {
         const militarySpeciality = new this.MilitarySpeciality({
             initialDate: new Date(),
             codeMilitarySpeciality,
             nameMilitarySpeciality,
             competenceMilitarySpeciality,
+            idMilitarySpecialityEn
         });
 
         return militarySpeciality.save();
@@ -28,8 +30,17 @@ export default class MilitarySpecialityService {
         return this.MilitarySpeciality.remove({_id: id});
     }
 
+    getById(id) {
+        return this.MilitarySpeciality.findOne({
+            _id: id
+        });
+    }
+
+    getByData(data) {
+        return this.MilitarySpeciality.findOne(data);
+    }
+
     findAll() {
         return this.MilitarySpeciality.find()
     }
 }
-

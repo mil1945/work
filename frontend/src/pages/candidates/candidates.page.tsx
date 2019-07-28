@@ -1,21 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import './main.page.scss';
+import './candidates.page.scss';
 import {Button, Card} from 'antd';
 import EnrolleeComponent from './../../components/enrollee/enrollee.component';
 import ExpertsComponent from './../../components/experts/experts.component';
 import RangingComponent from './../../components/ranging/ranging.component';
-import MilitarySpecialityComponent from './../../components/military-speciality/military-speciality.component';
-import CivilSpecialityComponent from './../../components/civil-speciality/civil-speciality.component';
 import {EXPERT_LABEL_NAME} from "../../components/experts/experts.constant";
 import Http from "../../service/http/http";
 import {addEnrollee} from "../../components/enrollee/enrollee.action";
 import {addExperts} from "../../components/experts/experts.action";
-import {addRanging} from "../../components/ranging/ranging.action";
-import {addMilitarySpeciality} from "../../components/military-speciality/military-speciality.action";
+import {addRanging, isLoadingRanging} from "../../components/ranging/ranging.action";
 import {addCivilSpeciality} from "../../components/civil-speciality/civil-speciality.action";
+import {isCandidates} from "../../components/router-tab/router-tab.action";
 
-class MainPage extends React.Component<any, any> {
+class CandidatesPage extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
     }
@@ -40,56 +38,46 @@ class MainPage extends React.Component<any, any> {
         });
 
         Object.entries(averageMark).forEach((averageValue: any) => {
-            averageMark[averageValue[0]] = +averageValue[1] / (experts.length - 1);
+            averageMark[averageValue[0]] = +(+averageValue[1] / (experts.length - 1)).toFixed(3);
         });
 
         return averageMark;
     }
 
     componentDidMount(): void {
-        const {addEnrollee, addExperts, addRanging, addMilitarySpeciality, addCivilSpeciality} = this.props;
+        const {addEnrollee, addExperts, addRanging, addCivilSpeciality, isCandidates} = this.props;
 
         Http.get('enrollee').then(enrollee => {
             addEnrollee(enrollee);
         });
 
         Http.get('experts').then(experts => {
-            console.log('componentDidMount experts');
-            console.log(experts);
             addExperts(experts);
         });
 
         Http.get('process').then(rangingData => {
-            console.log('componentDidMount rangingData');
-            console.log(rangingData);
-
             addRanging(rangingData.rangingData);
         });
 
-        Http.get('military-speciality').then(militarySpecialityData => {
-            console.log('componentDidMount militarySpecialityData');
-            console.log(militarySpecialityData);
-
-            addMilitarySpeciality(militarySpecialityData);
-        });
-
         Http.get('civil-speciality').then(civilSpecialityData => {
-            console.log('componentDidMount civilSpecialityData');
-            console.log(civilSpecialityData);
-
             addCivilSpeciality(civilSpecialityData);
         });
+
+        isCandidates()
     }
 
     render() {
-        const {enrollee, experts, militarySpeciality, civilSpeciality} = this.props;
+        const {enrollee, experts} = this.props;
         let averageMark = this.getAverageMark(experts);
         return (<div className={'main'}>
             <section className="main__block">
                 <Card className={'main__block-item'}
                       title="Список кандидатов"
                       hoverable={true}
-                      style={{margin: '10px'}}>
+                      style={{
+                          margin: '10px',
+                          width: '700px'
+                      }}>
                     {
                         !!enrollee && enrollee.map((elem: any, index: number) =>
                             <EnrolleeComponent key={index}
@@ -101,7 +89,10 @@ class MainPage extends React.Component<any, any> {
                 <Card className={'main__block-item _experts'}
                       title="Оценки экспертов"
                       hoverable={true}
-                      style={{margin: '10px'}}>
+                      style={{
+                          margin: '10px',
+                          width: '700px'
+                      }}>
                     <div className="main__block-mark">
                         {
                             Object.entries(averageMark).map((averageMark: any, index: number) =>
@@ -121,56 +112,32 @@ class MainPage extends React.Component<any, any> {
                             />)
                     }
                 </Card>
-
-                <Card className={'main__block-item'}
-                      title="Военно-учетная специальность"
-                      hoverable={true}
-                      style={{margin: '10px'}}>
-                    {
-                        !!militarySpeciality && militarySpeciality.map((elem: any, index: number) =>
-                            <MilitarySpecialityComponent key={index}
-                                                         idMilitarySpeciality={elem._id}
-                            />)
-                    }
-                </Card>
-
-                <Card className={'main__block-item'}
-                      title="Гражданская специальность"
-                      hoverable={true}
-                      style={{margin: '10px'}}>
-                    {
-                        !!civilSpeciality && civilSpeciality.map((elem: any, index: number) =>
-                            <CivilSpecialityComponent key={index}
-                                                         idCivilSpeciality={elem._id}
-                            />)
-                    }
-                </Card>
             </section>
 
             <Button type="primary"
                     size={'large'}
                     onClick={this.handleStartCalculations}>
-                Расчитать
+                Расчитать ранг и интегральный показатель
             </Button>
 
             <Card className={'main__block-item _experts'}
                   title="Ранжирование кандидатов"
                   hoverable={true}
-                  style={{margin: '10px'}}>
-                <RangingComponent />
+                  style={{
+                      margin: '20px',
+                      width: '1250px'
+                  }}>
+                <RangingComponent/>
             </Card>
         </div>);
     }
 
     handleStartCalculations = () => {
-        const {experts, addRanging} = this.props;
+        const {experts, addRanging, isLoadingRanging} = this.props;
         const averageMark = this.getAverageMark(experts);
-
+        isLoadingRanging();
 
         Http.post('process', {averageMark}).then((res: any) => {
-            console.log('process');
-            console.log(res);
-
             fetch('http://localhost:8005/data', {
                 method: 'GET',
                 headers: {
@@ -179,12 +146,6 @@ class MainPage extends React.Component<any, any> {
                 mode: 'cors'
             }).then((resp: any) => {
                 resp.json().then((rangingData: any) => {
-
-                    console.log('rangingData');
-                    console.log(rangingData);
-
-                    console.log(rangingData.rangingData)
-
                     addRanging(rangingData.rangingData);
                 });
             })
@@ -214,13 +175,12 @@ const mapDispatchToProps = (dispatch: any) => ({
         dispatch(addRanging(ranging));
     },
 
-    addMilitarySpeciality: (militarySpeciality: any) => {
-        dispatch(addMilitarySpeciality(militarySpeciality));
-    },
-
     addCivilSpeciality: (civilSpeciality: any) => {
         dispatch(addCivilSpeciality(civilSpeciality));
     },
+
+    isCandidates: () => {dispatch(isCandidates());},
+    isLoadingRanging: () => {dispatch(isLoadingRanging());},
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CandidatesPage);

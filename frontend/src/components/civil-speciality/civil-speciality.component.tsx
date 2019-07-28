@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import './civil-speciality.component.scss';
-import {Button, Form, Input, Modal, Select} from 'antd';
+import {Button, Form, Input, Modal, Select, Tooltip} from 'antd';
 import {addCivilSpeciality} from "./civil-speciality.action";
 import {FormComponentProps} from "antd/lib/form";
 import {CIVIL_SPECIALITY_LABEL_NAME} from "./civil-speciality.constant";
 import Http from "../../service/http/http";
+import {truncate} from "../../helpers/truncateString";
 
 // const { Option } = Select;
 
@@ -32,8 +33,6 @@ class CivilSpecialityComponent extends React.Component<IProps, any> {
 
         let {civilSpeciality, idCivilSpeciality} = this.props;
         idCivilSpeciality = !!this.props.idCivilSpeciality ? this.props.idCivilSpeciality : null;
-        console.log('idCivilSpeciality');
-        console.log(idCivilSpeciality);
         const currentCivilSpeciality = idCivilSpeciality ? civilSpeciality.find((elem: any) => elem._id === idCivilSpeciality) : civilSpeciality[0];
 
         return (<div className="civil-speciality">
@@ -42,12 +41,14 @@ class CivilSpecialityComponent extends React.Component<IProps, any> {
                     <Button style={{width: '300px'}} onClick={this.showCivilSpecialityModal}>
                         Добавить гражданскую специальность
                     </Button> :
-                    <Button type="link" onClick={this.showCivilSpecialityModal}>
-                        <span> {currentCivilSpeciality.nameCivilSpeciality}</span>
-                    </Button>
+                    <Tooltip title={currentCivilSpeciality.nameCivilSpeciality}>
+                        <Button type="link" onClick={this.showCivilSpecialityModal}>
+                            <span>{truncate(currentCivilSpeciality.nameCivilSpeciality, 95)}</span>
+                        </Button>
+                    </Tooltip>
             }
 
-            <Modal title="Гражжанская специальность"
+            <Modal title="Гражданская специальность"
                    visible={this.state.visibleCivilSpecialityModal}
                    onCancel={this.handleCancelCivilSpecialityModal}
                    footer={[
@@ -57,10 +58,11 @@ class CivilSpecialityComponent extends React.Component<IProps, any> {
                                onClick={this.handleSaveCivilSpecialityModal}>
                            Сохранить
                        </Button>,
-                   ]}>
+                   ]}
+                   width={1000}>
 
-                <Form labelCol={{span: 10}}
-                      wrapperCol={{span: 12}}
+                <Form labelCol={{span: 7}}
+                      wrapperCol={{span: 16}}
                       onSubmit={this.handleSubmit}>
 
                     <Form.Item label={CIVIL_SPECIALITY_LABEL_NAME.codeCivilSpeciality}

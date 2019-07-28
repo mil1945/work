@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import './military-speciality.component.scss';
-import {Button, Form, Input, Modal, Select} from 'antd';
+import {Button, Form, Input, Modal, Select, Tooltip} from 'antd';
 import {addMilitarySpeciality} from "./military-speciality.action";
 import {FormComponentProps} from "antd/lib/form";
 import {MILITARY_SPECIALITY_LABEL_NAME} from "./military-speciality.constant";
 import Http from "../../service/http/http";
+import {truncate} from "../../helpers/truncateString";
 
 // const {Option} = Select;
 
@@ -39,9 +40,11 @@ class MilitarySpecialityComponent extends React.Component<IProps, any> {
                     <Button style={{width: '300px'}} onClick={this.showMilitarySpecialityModal}>
                         Добавить ВУС
                     </Button> :
-                    <Button type="link" onClick={this.showMilitarySpecialityModal}>
-                        <span> {currentMilitarySpeciality.nameMilitarySpeciality}</span>
-                    </Button>
+                    <Tooltip title={currentMilitarySpeciality.nameMilitarySpeciality}>
+                        <Button type="link" onClick={this.showMilitarySpecialityModal}>
+                            <span>{truncate(currentMilitarySpeciality.nameMilitarySpeciality, 95)}</span>
+                        </Button>
+                    </Tooltip>
             }
 
             <Modal title="Военно-учетная специальность"
@@ -54,10 +57,11 @@ class MilitarySpecialityComponent extends React.Component<IProps, any> {
                                onClick={this.handleSaveMilitarySpecialityModal}>
                            Сохранить
                        </Button>,
-                   ]}>
+                   ]}
+                   width={1000}>
 
-                <Form labelCol={{span: 10}}
-                      wrapperCol={{span: 12}}
+                <Form labelCol={{span: 5}}
+                      wrapperCol={{span: 17}}
                       onSubmit={this.handleSubmit}>
 
                     <Form.Item label={MILITARY_SPECIALITY_LABEL_NAME.codeMilitarySpeciality}
@@ -99,7 +103,7 @@ class MilitarySpecialityComponent extends React.Component<IProps, any> {
                             initialValue: currentMilitarySpeciality.competenceMilitarySpeciality
                         })(
                             <Select mode="tags"
-                                    placeholder={MILITARY_SPECIALITY_LABEL_NAME.competenceMilitarySpeciality} />
+                                    placeholder={MILITARY_SPECIALITY_LABEL_NAME.competenceMilitarySpeciality}/>
                         )}
                     </Form.Item>
                 </Form>

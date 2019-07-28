@@ -6,6 +6,7 @@ const CivilSpecialitySchema = new Schema({
     codeCivilSpeciality: {type: Number},
     nameCivilSpeciality: {type: String},
     competenceCivilSpeciality: {type: Array}, // массив
+    idCivilSpecialityEn: {type: String},
 });
 
 const CivilSpeciality = mongoose.model('CivilSpeciality', CivilSpecialitySchema);

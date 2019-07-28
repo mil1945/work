@@ -1,4 +1,5 @@
 export const ADD_ENROLLEE = 'ADD_ENROLLEE';
+export const LOADING_ENROLLEE = 'LOADING_ENROLLEE';
 
 export const ENROLLEE_LABEL_NAME = {
     fullName: 'Фамилия Имя Отчество',

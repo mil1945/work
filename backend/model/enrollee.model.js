@@ -12,6 +12,7 @@ const EnrolleeSchema = new Schema({
     integralIndex: {type: Number},
     civilSpeciality: {type: Number},
     rank: {type: Number},
+    recommendationsMilitarySpeciality: {type: Array}, // изменить
 });
 
 const Enrollee = mongoose.model('Enrollee', EnrolleeSchema);

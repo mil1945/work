@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import '../model/civil-speciality.model.js';
+import '../model/civil-speciality-en.model.js';
 
 export default class CivilSpecialityEnService {
     constructor() {
@@ -7,11 +7,10 @@ export default class CivilSpecialityEnService {
     }
 
     createCivilSpecialityEn({
-                              codeCivilSpecialityEn,
-                              competenceCivilSpecialityEn,
-                          }) {
+                                codeCivilSpecialityEn,
+                                competenceCivilSpecialityEn,
+                            }) {
         const civilSpecialityEn = new this.CivilSpecialityEn({
-            initialDate: new Date(),
             codeCivilSpecialityEn,
             competenceCivilSpecialityEn,
         });
@@ -29,6 +28,10 @@ export default class CivilSpecialityEnService {
         return this.CivilSpecialityEn.remove({
             _id: id
         });
+    }
+
+    deleteAll() {
+        return this.CivilSpecialityEn.remove();
     }
 
     findAll() {

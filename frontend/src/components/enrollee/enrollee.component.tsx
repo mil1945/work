@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import './enrollee.component.scss';
 import {Button, Form, Input, Modal, Select} from 'antd';
-import {addEnrollee} from "./enrollee.action";
+import {addEnrollee, isLoadingEnrollee} from "./enrollee.action";
 import {FormComponentProps} from "antd/lib/form";
 import {
     ENROLLEE_EDUCATION_LEVEL,
@@ -19,6 +19,7 @@ interface IProps extends FormComponentProps {
     addEnrollee: any;
     enrollee?: any;
     civilSpeciality: any;
+    isLoadingEnrollee: any
 }
 
 class EnrolleeComponent extends React.Component<IProps, any> {
@@ -45,17 +46,20 @@ class EnrolleeComponent extends React.Component<IProps, any> {
         const currentEnrollee = !!idEnrollee ? enrollee.find((elem: any) => elem._id === idEnrollee) : enrollee[0];
         const {civilSpeciality} = this.props;
 
-        console.log('EnrolleeComponent');
-        console.log(civilSpeciality);
-        console.log(currentEnrollee);
+        console.log('enrollee from enrollee component');
+        console.log(enrollee);
 
         return (<div className="enrollee">
             {
                 !idEnrollee ?
-                    <Button style={{width: '300px'}} onClick={this.showEnrolleeModal}>
+                    <Button style={{width: '300px', marginBottom: '10px'}} onClick={this.showEnrolleeModal}>
                         Добавить кандидата
                     </Button> :
-                    <Button type="link" onClick={this.showEnrolleeModal}>{currentEnrollee.fullName}</Button>
+                    <div className="enrollee__row">
+                        <Button type="link" onClick={this.showEnrolleeModal}>{currentEnrollee.fullName}</Button>
+                        <div className="enrollee__row-elem">{currentEnrollee.recommendationsMilitarySpeciality.join(', ')}</div>
+                        <Button type="dashed" onClick={this.getRecommendation.bind(null, idEnrollee)}>Рекомендованная ВУС</Button>
+                    </div>
             }
 
             <Modal title="Кандидат"
@@ -66,7 +70,8 @@ class EnrolleeComponent extends React.Component<IProps, any> {
                        <Button key="save" htmlType="submit" type="primary" onClick={this.handleSaveEnrolleeModal}>
                            Сохранить
                        </Button>,
-                   ]}>
+                   ]}
+                   width={1000}>
 
                 <Form labelCol={{span: 10}}
                       wrapperCol={{span: 12}}
@@ -200,8 +205,6 @@ class EnrolleeComponent extends React.Component<IProps, any> {
                             </Select>
                         )}
                     </Form.Item>
-                    {console.log('codeCivilSpeciality')}
-                    {console.log(JSON.stringify(currentEnrollee.codeCivilSpeciality))}
                     <Form.Item label={ENROLLEE_LABEL_NAME.civilSpeciality}
                                help={this.state.civilSpecialitylHelp}
                                validateStatus={!!this.state.civilSpecialitylHelp ? 'error' : 'success'}>
@@ -358,6 +361,23 @@ class EnrolleeComponent extends React.Component<IProps, any> {
         });
     };
 
+    getRecommendation = (idEnrollee: any) => {
+        const {addEnrollee, isLoadingEnrollee} = this.props;
+        isLoadingEnrollee();
+
+        fetch(`http://localhost:8005/recommendation?idEnrollee=${idEnrollee}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            mode: 'cors'
+        }).then((resp: any) => {
+            resp.json().then((users: any) => {
+                addEnrollee(...users);
+            });
+        })
+    };
+
     showEnrolleeModal = () => {
         this.setState({
             visibleEnrolleeModal: true,
@@ -386,6 +406,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     addEnrollee: (enrollee: any) => {
         dispatch(addEnrollee(enrollee));
     },
+    isLoadingEnrollee: () => {dispatch(isLoadingEnrollee());},
 });
 
 const WrappedEnrollee = Form.create<IProps>({name: 'coordinated'})(EnrolleeComponent);

@@ -54,7 +54,8 @@ class ExpertsComponent extends React.Component<IProps, any> {
                        <Button key="save" htmlType="submit" type="primary" onClick={this.handleSaveExpertsModal}>
                            Сохранить
                        </Button>,
-                   ]}>
+                   ]}
+                   width={1000}>
 
                 <Form labelCol={{span: 10}}
                       wrapperCol={{span: 12}}

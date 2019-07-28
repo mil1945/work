@@ -7,18 +7,33 @@ export default class CivilSpecialityService {
     }
 
     createCivilSpeciality({
-        codeCivilSpeciality,
-        nameCivilSpeciality,
-        competenceCivilSpeciality,
-    }) {
+                              codeCivilSpeciality,
+                              nameCivilSpeciality,
+                              competenceCivilSpeciality,
+                              idCivilSpecialityEn
+                          }) {
         const civilSpeciality = new this.CivilSpeciality({
             initialDate: new Date(),
             codeCivilSpeciality,
             nameCivilSpeciality,
             competenceCivilSpeciality,
+            idCivilSpecialityEn
         });
 
+        console.log('createCivilSpeciality idCivilSpecialityEn');
+        console.log(idCivilSpecialityEn);
+
         return civilSpeciality.save();
+    }
+
+    getById(id) {
+        return this.CivilSpeciality.findOne({
+            _id: id
+        });
+    }
+
+    getByData(data) {
+        return this.CivilSpeciality.findOne(data);
     }
 
     update(data, id) {

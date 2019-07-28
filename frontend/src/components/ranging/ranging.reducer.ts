@@ -1,5 +1,6 @@
 import {
-    ADD_RANGING
+    ADD_RANGING,
+    LOADING_RANGING
 } from "./ranging.constant";
 
 const initialState = {
@@ -12,10 +13,17 @@ const initialState = {
         recommendationsMilitarySpeciality: 0, // изменить
         recommendationsSubdivision: 0, // изменить
     }, ],
+    loadingRanging: false
 };
 
 export default function rangingReducer(state = initialState, action: any) {
     switch (action.type) {
+        case (LOADING_RANGING): {
+            return {
+                ...state,
+                loadingRanging: true
+            }
+        }
         case (ADD_RANGING): {
             const ranging = action.payload.map((element: any) => {
                 const key = typeof element._id === 'string' ? element._id : element._id.$oid;
@@ -32,7 +40,8 @@ export default function rangingReducer(state = initialState, action: any) {
 
             return {
                 ...state,
-                ranging
+                ranging,
+                loadingRanging: false
             }
         }
         default:
