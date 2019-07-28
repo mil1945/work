@@ -35,10 +35,6 @@ class App extends React.Component<any, any> {
     public render() {
         const {activeKey, loadingRanging, isLoadingEnrolle} = this.props;
 
-        console.log('activeKey');
-        console.log(activeKey);
-
-
         return (
             <div className="app">
                 <div className="app__tabs">

@@ -48,6 +48,10 @@ export default class CivilSpecialityService {
         });
     }
 
+    deleteAll() {
+        return this.CivilSpeciality.remove();
+    }
+
     findAll() {
         return this.CivilSpeciality.find()
     }

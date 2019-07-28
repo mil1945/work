@@ -30,6 +30,10 @@ export default class ExpertsService {
         return this.Experts.remove({_id: id});
     }
 
+    deleteAll() {
+        return this.Experts.remove();
+    }
+
     findAll() {
         return this.Experts.find();
     }

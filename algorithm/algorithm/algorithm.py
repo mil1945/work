@@ -34,6 +34,9 @@ def get_equality(line, line_for_compare):
 
     [result, degree_of_comparison] = compare_line(line_list, line_for_compare_list)
 
+    if degree_of_comparison != 0:
+        result /= degree_of_comparison
+
     return result
 
 
@@ -42,19 +45,23 @@ def compare_line(line, line_for_compare):
     line_for_compare_with_post_tag = [get_word_with_tags(w) for w in line_for_compare]
     word_equality = [0] * len(line_with_post_tag)
 
+    count_significant_element = 0
     for i in range(len(line_with_post_tag)):
         for j in range(len(line_for_compare_with_post_tag)):
             try:
                 w1 = wordnet.synset(line_with_post_tag[i])
                 w2 = wordnet.synset(line_for_compare_with_post_tag[j])
-                word_equality[i] += w1.wup_similarity(w2)
+
+                if w1.wup_similarity(w2) > 0.3:
+                    word_equality[i] += w1.wup_similarity(w2)
+                    count_significant_element += 1
             except Exception:
                 continue
     result = 0
     for elem in word_equality:
         result += elem
 
-    return [result, len(line)]
+    return [result, count_significant_element]
 
 
 def get_word_with_tags(word):

@@ -13,10 +13,16 @@ class RangingComponent extends React.Component<IProps, any> {
         super(props);
     }
 
+    handleTableChange = (pagination: any, filters: any, sorter: any) => {
+        console.log(sorter.field, sorter.order);
+    };
+
     render() {
         const {ranging} = this.props;
         return (<div className="ranging">
-            <Table dataSource={ranging} columns={COLUMNS}/>;
+            <Table dataSource={ranging}
+                   columns={COLUMNS}
+                   onChange={this.handleTableChange}/>;
         </div>);
     }
 }

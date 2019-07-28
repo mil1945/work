@@ -2,6 +2,7 @@ import {
     ADD_RANGING,
     LOADING_RANGING
 } from "./ranging.constant";
+import {formatDate} from '../../helpers/formatDate';
 
 const initialState = {
     ranging: [{
@@ -27,8 +28,8 @@ export default function rangingReducer(state = initialState, action: any) {
         case (ADD_RANGING): {
             const ranging = action.payload.map((element: any) => {
                 const key = typeof element._id === 'string' ? element._id : element._id.$oid;
-                const date = typeof element.date === 'string' ? element.date : new Date(element.date.$date).getTime();
-                const recommendationsMilitarySpeciality = element.recommendationsMilitarySpeciality.join(', ')
+                const date = typeof element.date === 'string' && element.date !== '' ? formatDate(new Date(element.date)) : formatDate(new Date(element.date.$date));
+                const recommendationsMilitarySpeciality = element.recommendationsMilitarySpeciality.join(', ');
 
                 return {
                     ...element,

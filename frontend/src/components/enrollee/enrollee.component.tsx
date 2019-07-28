@@ -46,9 +46,6 @@ class EnrolleeComponent extends React.Component<IProps, any> {
         const currentEnrollee = !!idEnrollee ? enrollee.find((elem: any) => elem._id === idEnrollee) : enrollee[0];
         const {civilSpeciality} = this.props;
 
-        console.log('enrollee from enrollee component');
-        console.log(enrollee);
-
         return (<div className="enrollee">
             {
                 !idEnrollee ?

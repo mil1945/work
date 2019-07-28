@@ -59,7 +59,7 @@ export default class RangingUtils {
 
         return fullPriorityMatrix.reduce((rangEnrollee, priorityMarkElement, index) => {
             priorityMarkElement = priorityMarkElement.map(priorityMark => priorityMark * this.weights[index]);
-            rangEnrollee = rangEnrollee.map((priorityMark, i) => priorityMark + priorityMarkElement[i]);
+            rangEnrollee = rangEnrollee.map((priorityMark, i) => +(priorityMark + priorityMarkElement[i]).toFixed(3));
 
             return rangEnrollee;
         }, new Array(educationLevelPriority.length).fill(0));
@@ -68,7 +68,7 @@ export default class RangingUtils {
     getIntegralIndex() {
         return this.enrollee.map(enrollee => {
             return Object.keys(INDICATORS).reduce((indicators, indicatorElement, index) => {
-                return indicators + enrollee[indicatorElement] * this.weights[index];
+                return +(indicators + enrollee[indicatorElement] * this.weights[index]).toFixed(3);
             }, 0);
         });
     };

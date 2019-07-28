@@ -39,6 +39,10 @@ export default class EnrolleeService {
         return this.Enrollee.remove({_id: id});
     }
 
+    deleteAll() {
+        return this.Enrollee.remove();
+    }
+
     findAll() {
         return this.Enrollee.find()
     }

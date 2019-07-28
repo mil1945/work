@@ -7,6 +7,9 @@ import ExpertsController from './controller/experts.controller';
 import ProcessController from './controller/process.controller.js';
 import MilitarySpecialityController from './controller/military-speciality.controller.js';
 import CivilSpecialityController from './controller/civil-speciality.controller.js';
+import UtilController from './controller/util.controller.js';
+import RangingController from './controller/ranging.controller.js';
+
 import * as dbUtils from './utils/db.utils.js';
 
 class Application {
@@ -28,6 +31,8 @@ class Application {
         this.processController = new ProcessController;
         this.militarySpecialityController = new MilitarySpecialityController;
         this.civilSpecialityController = new CivilSpecialityController;
+        this.utilController = new UtilController;
+        this.rangingController = new RangingController;
 
         this.startRoutes();
 
@@ -50,6 +55,8 @@ class Application {
         this.app.post('/process', this.processController.createRangingData.bind(this));
         this.app.get('/process', this.processController.getRangingData.bind(this));
 
+        this.app.get('/ranging/:fieldName/:sortType', this.rangingController.getFilterData.bind(this));
+
         this.app.get('/military-speciality', this.militarySpecialityController.allMilitarySpeciality.bind(this));
         this.app.post('/military-speciality', this.militarySpecialityController.createMilitarySpeciality.bind(this));
         this.app.post('/military-speciality/:id', this.militarySpecialityController.updateMilitarySpecialityById.bind(this));
@@ -59,6 +66,8 @@ class Application {
         this.app.post('/civil-speciality', this.civilSpecialityController.createCivilSpeciality.bind(this));
         this.app.post('/civil-speciality/:id', this.civilSpecialityController.updateCivilSpecialityById.bind(this));
         this.app.delete('/civil-speciality/:id', this.civilSpecialityController.deleteCivilSpecialityById.bind(this));
+
+        this.app.get('/util/clear', this.utilController.clearAll.bind(this)); // for debug
     }
 }
 

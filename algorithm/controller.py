@@ -4,9 +4,7 @@ from bson.objectid import ObjectId
 
 
 def get_data_for_user(db, id_user):
-    print(db.list_collection_names())
     enrollee = db.enrollees.find_one({"_id": ObjectId(id_user)})
-    print(enrollee)
 
     civil_speciality = db.civilspecialityens.find_one({'codeCivilSpecialityEn': enrollee['civilSpeciality']})
     military_specialitie = list(db.militaryspecialityens.find())
@@ -34,22 +32,22 @@ def get_data_for_user(db, id_user):
 
 
 def get_data(db):
-    print(db.list_collection_names())
+    # print(db.list_collection_names())
 
     military_specialitie = list(db.militaryspecialityens.find())
 
     for enrollee in db.enrollees.find():
-        print(db.civilspecialityens)
+        # print(db.civilspecialityens)
 
         civil_speciality = db.civilspecialityens.find_one({'codeCivilSpecialityEn': enrollee['civilSpeciality']})
 
-        print(civil_speciality)
+        # print(civil_speciality)
 
         competence_civil_speciality = civil_speciality['competenceCivilSpecialityEn']
         idEnrollee = enrollee['_id']
 
         print('.')
-        print(competence_civil_speciality, military_specialitie)
+        # print(competence_civil_speciality, military_specialitie)
 
         for elem_military_specialitie in military_specialitie:
             equality = main(competence_civil_speciality, elem_military_specialitie['competenceMilitarySpecialityEn'])

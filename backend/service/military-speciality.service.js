@@ -30,6 +30,10 @@ export default class MilitarySpecialityService {
         return this.MilitarySpeciality.remove({_id: id});
     }
 
+    deleteAll() {
+        return this.MilitarySpeciality.remove();
+    }
+
     getById(id) {
         return this.MilitarySpeciality.findOne({
             _id: id

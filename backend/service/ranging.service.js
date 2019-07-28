@@ -38,6 +38,14 @@ export default class RangingService {
         return this.Ranging.remove();
     }
 
+    filterAsc() {
+        return this.Ranging.aggregate(
+            [
+                { $sort : { fullName : -1} }
+            ]
+        )
+    }
+
     findAll() {
         return this.Ranging.find();
     }
