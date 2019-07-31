@@ -1,5 +1,5 @@
 {
-  "name": "tau",
+  "name": "comparizer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,7 +8,6 @@
     "@types/redux-logger": "^3.0.7",
     "@types/redux-thunk": "^2.1.0",
     "antd": "^3.17.0",
-    "electron": "^5.0.8",
     "pdfmake": "^0.1.56",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -19,11 +18,15 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "start": "react-scripts-ts-antd start",
+    "start": "npm run react-start && npm run electron-start",
     "build": "react-scripts-ts-antd build",
-    "test": "react-scripts-ts-antd test --env=jsdom",
-    "eject": "react-scripts-ts-antd eject",
-    "now-build": "react-scripts-ts-antd build"
+    "electron": "electron .",
+    "electron-start": "node src/start-react",
+    "react-start": "react-scripts-ts-antd start",
+    "pack": "build --dir",
+    "dist": "npm run build && build",
+    "postinstall": "install-app-deps",
+    "electron-dev": "node ./src/start.js"
   },
   "devDependencies": {
     "@types/jest": "^24.0.12",
@@ -31,6 +34,20 @@
     "@types/react": "^16.8.16",
     "@types/react-dom": "^16.8.4",
     "@types/react-redux": "^7.0.8",
+    "electron": "^5.0.8",
+    "electron-builder": "^21.1.5",
+    "electron-packager": "^14.0.3",
     "typescript": "^3.4.5"
+  },
+  "homepage": "./",
+  "main": "src/start.js",
+  "build": {
+    "appId": "com.electron.electron-with-create-react-app",
+    "win": {
+      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+    },
+    "directories": {
+      "buildResources": "public"
+    }
   }
 }

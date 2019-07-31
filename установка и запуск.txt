@@ -1,0 +1,21 @@
+1) Установить Python 3
+2) Установить Node 
+3) Установить Mongo 3.0
+
+от имени администатора запустить для установки(только в первый запуск):
+
+4) 	desktop/front_install.vbs, 
+	backend/backend_install.vbs
+	algorithm/algorithm_install.vbs
+
+от имени администатора запустить для старта:
+
+5) 	algorithm/algorithm_run.vbs
+	backend/backend_run.vbs
+	desktop/front_run.vbs
+	mongo_run.vbs
+
+или 
+
+4) 	install_project.vbs
+5) 	start_project.vbs

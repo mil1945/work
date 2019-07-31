@@ -1,0 +1,16 @@
+.enrollee {
+  display: flex;
+  justify-content: center;
+
+  &__row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+
+    &-elem {
+      margin: 0 5px;
+    }
+  }
+}
