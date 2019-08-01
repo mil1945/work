@@ -19,3 +19,16 @@
 
 4) 	install_project.vbs
 5) 	start_project.vbs
+
+4) в папаке desktop, backend
+	npm i
+   в папке algorithm
+	pip3 install -r requirements.txt
+5) в папаке backend
+	npm run start
+   в папаке desktop
+	npm run react-start
+   в папке algorithm
+	python app.py
+   
+ 	mongo_run.vbs

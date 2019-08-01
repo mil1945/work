@@ -100,7 +100,7 @@ class CandidatesPage extends React.Component<any, any> {
                     <div className="main__block-mark">
                         {
                             Object.entries(averageMark).map((averageMark: any, index: number) =>
-                                !!averageMark[1] && <div className="main__block-mark-item" key={index}>
+                                !!averageMark[1] && <div className="main__block-mark-item" key={index} style={{justifyContent: 'space-between'}}>
                                     <div className="main__block-mark-key">{EXPERT_LABEL_NAME[averageMark[0]]}:</div>
                                     <div className="main__block-mark-value">{averageMark[1]}</div>
                                 </div>

@@ -47,6 +47,8 @@ is
 are
 was
 were
+what
+which
 be
 been
 being
@@ -58,6 +60,7 @@ do
 does
 did
 doing
+done
 a
 an
 the
@@ -74,6 +77,7 @@ at
 by
 for
 with
+without
 about
 against
 between
@@ -133,6 +137,14 @@ don
 don't
 should
 should've
+should have
+shouldn't
+should not
+would
+would've
+would have
+wouldn't
+would not
 now
 d
 ll
@@ -148,7 +160,9 @@ couldn
 couldn't
 didn
 didn't
+did
 doesn
+does
 doesn't
 hadn
 hadn't
@@ -159,21 +173,107 @@ haven't
 isn
 isn't
 ma
-mightn
+us
+might
 mightn't
+might not
 mustn
 mustn't
+must not
 needn
 needn't
+need not
 shan
 shan't
 shouldn
 shouldn't
+should not
 wasn
 wasn't
-weren
+was not
+were
 weren't
-won
+were not
+will
 won't
 wouldn
 wouldn't
+would not
+ability
+provide
+provided
+providing
+understand
+unsterstood
+understanding
+realize
+realizing
+realized
+realise
+organize
+organizing
+organized
+use
+used 
+using
+work
+working
+worked
+take
+took
+taken
+taking
+imagine
+imagined
+imagination
+define
+defined
+definition
+determine
+determined
+determination
+find 
+finding
+finded
+set
+setting
+perform
+performed
+performing
+do 
+done
+make
+made
+making
+fulfill
+fulfilled
+fulfilling
+execute
+executing
+executed
+satisfy
+satisfied
+satisfying
+satisfaction
+accomplish
+accomplishing
+accomplished
+achieve
+achieving
+echieved
+exercise
+exercised
+exercising
+form
+forming
+formed
+skill
+apply
+applying
+applied
+practise
+practised
+practising
+practice
+implement
+implemented

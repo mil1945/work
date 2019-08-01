@@ -53,7 +53,7 @@ class EnrolleeComponent extends React.Component<IProps, any> {
                         Добавить кандидата
                     </Button> :
                     <div className="enrollee__row">
-                        <Button type="link" onClick={this.showEnrolleeModal}>{currentEnrollee.fullName}</Button>
+                        <Button type="link" style={{minWidth: '250px'}} onClick={this.showEnrolleeModal}>{currentEnrollee.fullName}</Button>
                         <div className="enrollee__row-elem">{currentEnrollee.recommendationsMilitarySpeciality.join(', ')}</div>
                         <Button type="dashed" onClick={this.getRecommendation.bind(null, idEnrollee)}>Рекомендованная ВУС</Button>
                     </div>
